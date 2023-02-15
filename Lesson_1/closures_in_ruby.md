@@ -1,4 +1,4 @@
-# Closures 
+# Lesson 1.2: Closures 
 ### Closures are a general programming concept allowing programmers to save a "chunk of code" and execute it at a later time. 
 
 - closures bind their surrounding artifacts (variables, methods)

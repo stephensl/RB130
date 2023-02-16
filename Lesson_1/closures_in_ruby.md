@@ -26,3 +26,4 @@
 *How does a closure's binding relate to scope?* 
 
 ---
+---

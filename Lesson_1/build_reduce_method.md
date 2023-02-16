@@ -82,3 +82,31 @@ reduce(array) { |acc, num| acc + num }                    # => 15
 reduce(array, 10) { |acc, num| acc + num }                # => 25
 reduce(array) { |acc, num| acc + num if num.odd? }        # => NoMethodError: undefined method `+' for nil:NilClass
 ```
+---
+---
+---
+### Challenge 
+Implement `reduce` method to accept non-numeric default initial value. 
+
+```ruby 
+reduce(['a', 'b', 'c']) { |acc, value| acc += value }     # => 'abc'
+reduce([[1, 2], ['a', 'b']]) { |acc, value| acc + value } # => [1, 2, 'a', 'b']
+```
+
+```ruby 
+def reduce(array, default=nil)
+  accumulator = default || array.shift
+
+  0.upto(array.size - 1) do |idx|
+    accumulator = yield(accumulator, array[idx])
+  end 
+
+  accumulator 
+end 
+
+reduce(['a', 'b', 'c']) { |acc, value| acc += value }     # => 'abc'
+reduce([[1, 2], ['a', 'b']]) { |acc, value| acc + value } # => [1, 2, 'a', 'b']
+```
+
+---
+---

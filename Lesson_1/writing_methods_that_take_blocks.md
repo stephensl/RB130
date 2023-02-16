@@ -455,3 +455,57 @@ Walkthrough of code above:
   - push `total` to results array
   - end block execution and back to Line 2 for next iteration
 
+---
+---
+### Returning closures 
+```ruby 
+1:  def sequence
+2:    counter = 0 
+3:    Proc.new { counter += 1 }
+4:  end 
+5:  
+6:  s1 = sequence 
+7:  
+8:  p s1.call # => 1
+9:  p s1.call # => 2
+10:  p s1.call # => 3
+11:  puts 
+12:  
+13:  s2 = sequence 
+14:  p s2.call # => 1 
+15:  
+16:  p s1.call # => 4
+17:  
+18:  p s2.call # => 2
+```
+In the code above, `#sequence` returns a `Proc` object that is invoked via the `#call` method. 
+
+- On line 6 we assign the return value of `#sequence` to local variable `s1`. 
+  - `s1` now references a `Proc` object. 
+  - The `Proc` object forms a closure with the local variable `counter`.
+- Line 8 invoke the `p` method on the return value of invoking the `#call` method on `s1` which is our `Proc` object. 
+- Our `Proc` object returns `1`. 
+- Line 9 we invoke our `Proc` again, this time `counter` is incremented to `2` and returned. 
+- Line 10, repeats this and `counter` is incremented to 3. 
+--- 
+- Line 13 we initialize local variable `s2` to the return value of `sequence`. 
+- A new `Proc` object is now stored in `s2` with its own `counter` independent of the `counter` in `s1`. 
+- Line 14 we call our new `Proc` object, which returns `1`. 
+- Line 16 shows that our `Proc` object stored in `s1` is still functioning appropriately and returns `4`, as this `Proc` object's binding includes its own `counter` separate from `s2`.
+- Line 18, invoke the `Proc` stored in `s2` and `2` is returned. 
+
+This example shows that we can create multiple `Proc` objects from a common method and each will have its own independent copy of the variables due to closures. 
+---
+---
+---
+---
+## Summary 
+- Blocks are one way Ruby implements closures. 
+- Closures are a way to pass around chunks of code and execute later. 
+- Blocks can take arguments but have lenient arity. 
+- Blocks have a return value just like normal methods. 
+- Blocks allow deferment of implementation decisions to invocation time. 
+- Blocks provide flexibility for refining methods for specific use case. 
+  - Generic methods may be defined and implemented with specialized behavior based on the block.
+- Blocks are useful in "sandwiching" code, such as closing a `File` automatically. 
+- Methods and blocks can return a chunk of code by returning a `Proc` or `lambda`. 

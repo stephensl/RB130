@@ -139,3 +139,60 @@ list.each do |todo|
 end
 ```
 
+---
+---
+---
+---
+
+## My implementation of the `TodoList#each` method. 
+```ruby 
+  def each
+    0.upto(todos.size - 1) do |index|
+      yield(todos[index])
+    end 
+
+    todos 
+  end 
+
+
+  # or 
+
+
+  def each 
+    todos.each do |todo|   # utilizing Array#each here
+      yield(todo)
+    end 
+  end 
+
+
+# or 
+
+
+def each 
+  counter = 0 
+  while counter < todos.size
+    yield(todos[counter])
+    counter += 1
+  end 
+
+  todos
+end 
+
+
+#  [ ] Buy milk
+#  [ ] Clean room
+#  [ ] Go to gym
+# => *Returns original collection 
+```
+---
+---
+---
+# Questions: 
+---
+### Why create a `TodoList#each` method when we already have access to `Array#each` and we are operating on an array object `todos`?
+
+- In most cases we prefer to work with the `TodoList` object directly, rather than exposing information about its state by making `todos` publicly available. 
+- ## The principle of encapsulation is at work here, as we'd like user to interact with the object through an interface, rather than exposing information about the object's state, which may lead to unintentional data manipulation. 
+  -  This is the idea behind encapsulation: we want to hide implementation details from users of the TodoList class, and not encourage users of this class to reach into its internal state. Instead, we want to encourage users of the class to use the interfaces (ie, public methods) we created for them.
+  - The entire goal of creating a class and encapsulating logic in a class is to hide implementation details and contain ripple effects when things change. Prefer to use the class's interface where possible.
+  

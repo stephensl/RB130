@@ -83,7 +83,7 @@
 # missing([6]) == []
 
 #-------------------------------------------------------------------------------
-#                                 ANSWER: 
+#                                 ANSWER: 3
 #-------------------------------------------------------------------------------
 
 # def missing(array)
@@ -111,7 +111,7 @@
 
 
 #-------------------------------------------------------------------------------
-#                                 QUESTION: 
+#                                 QUESTION: 4
 #-------------------------------------------------------------------------------
 
 # Divisors
@@ -127,7 +127,7 @@
 # divisors(99400891) == [1, 9967, 9973, 99400891] # may take a minute
 
 #-------------------------------------------------------------------------------
-#                                 ANSWER: 
+#                                 ANSWER: 4
 #-------------------------------------------------------------------------------
 # def divisors(num)
 #   (1..num).select do |int|
@@ -142,23 +142,151 @@
 #===============================================================================
 #===============================================================================
 #===============================================================================
-require 'pry'
-ALPHABET = ('a'..'z').to_a
 
-def decypher(name)
-  name = name.downcase.chars
-  result = []
 
-  name.map do |char|
-    next if char == ' ' 
-    
-    current_index = ALPHABET.find_index(char)
-    #binding.pry
-    new_index = current_index - 13
+#-------------------------------------------------------------------------------
+#                                 QUESTION: 5
+#-------------------------------------------------------------------------------
 
-    result << ALPHABET[new_index]
+
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------------
+#                                 ANSWER: 5
+#-------------------------------------------------------------------------------
+
+
+#===============================================================================
+#===============================================================================
+#===============================================================================
+
+
+
+
+
+#-------------------------------------------------------------------------------
+#                                 QUESTION: 6
+#-------------------------------------------------------------------------------
+# Write a method called any? that behaves similarly for Arrays. It should take an Array as an argument, and a block. It should return true if the block returns true for any of the element values. Otherwise, it should return false.
+
+# Your method should stop processing elements of the Array as soon as the block returns true.
+
+# If the Array is empty, any? should return false, regardless of how the block is defined.
+
+# Your method may not use any standard ruby method that is named all?, any?, none?, or one?.
+
+# Examples:
+
+# any?([1, 3, 5, 6]) { |value| value.even? } == true
+# any?([1, 3, 5, 7]) { |value| value.even? } == false
+# any?([2, 4, 6, 8]) { |value| value.odd? } == false
+# any?([1, 3, 5, 7]) { |value| value % 5 == 0 } == true
+# any?([1, 3, 5, 7]) { |value| true } == true
+# any?([1, 3, 5, 7]) { |value| false } == false
+# any?([]) { |value| true } == false
+
+
+#-------------------------------------------------------------------------------
+#                                 ANSWER: 6
+#-------------------------------------------------------------------------------
+def any?(array)
+  array.each do |el|
+    return true if yield(el)
   end 
-  result.join
+  false
 end 
 
-p decypher("Nqn Ybirynpr")
+
+#===============================================================================
+#===============================================================================
+#===============================================================================
+
+
+#-------------------------------------------------------------------------------
+#                                 QUESTION: 7
+#-------------------------------------------------------------------------------
+# Iterators: True for All?
+
+# Write a method called all? that behaves similarly for Arrays. It should take an Array as an argument, and a block. It should return true if the block returns true for all of the element values. Otherwise, it should return false.
+
+# Your method should stop processing elements of the Array as soon as the block returns false.
+
+# If the Array is empty, all? should return true, regardless of how the block is defined.
+
+# Your method may not use any standard ruby method that is named all?, any?, none?, or one?.
+
+# Examples:
+
+# all?([1, 3, 5, 6]) { |value| value.odd? } == false
+# all?([1, 3, 5, 7]) { |value| value.odd? } == true
+# all?([2, 4, 6, 8]) { |value| value.even? } == true
+# all?([1, 3, 5, 7]) { |value| value % 5 == 0 } == false
+# all?([1, 3, 5, 7]) { |value| true } == true
+# all?([1, 3, 5, 7]) { |value| false } == false
+# all?([]) { |value| false } == true
+
+#-------------------------------------------------------------------------------
+#                                 ANSWER: 
+#-------------------------------------------------------------------------------
+def all?(array)
+  array.each do |el|
+    return false unless yield(el)
+  end 
+  true 
+end 
+
+#===============================================================================
+#===============================================================================
+#===============================================================================
+
+
+#-------------------------------------------------------------------------------
+#                                 QUESTION: 8
+#-------------------------------------------------------------------------------
+# Iterators: True for None?
+
+# In this exercise, you will develop another of the methods in this family, none?
+
+# Enumerable#none? processes elements in a collection by passing each element value to a block that is provided in the method call. If the block returns true for any element, then #none? returns false. Otherwise, #none? returns true. Note in particular that #none? will stop searching the collection the first time the block returns true.
+
+# Write a method called none? that behaves similarly for Arrays. It should take an Array as an argument, and a block. It should return true if the block returns false for all of the element values. Otherwise, it should return false.
+
+# Your method should stop processing elements of the Array as soon as the block returns true.
+
+# If the Array is empty, none? should return true, regardless of how the block is defined.
+
+# Your method may not use any of the following methods from the Array and Enumerable classes: all?, any?, none?, one?. You may, however, use either of the methods created in the previous two exercises.
+
+# Examples: 
+
+# none?([1, 3, 5, 6]) { |value| value.even? } == false
+# none?([1, 3, 5, 7]) { |value| value.even? } == true
+# none?([2, 4, 6, 8]) { |value| value.odd? } == true
+# none?([1, 3, 5, 7]) { |value| value % 5 == 0 } == false
+# none?([1, 3, 5, 7]) { |value| true } == false
+# none?([1, 3, 5, 7]) { |value| false } == true
+# none?([]) { |value| true } == true
+
+#-------------------------------------------------------------------------------
+#                                 ANSWER: 8
+#-------------------------------------------------------------------------------
+def none?(array)
+  array.each do |el|
+    return false if yield(el)
+  end 
+  true 
+end 
+
+# or 
+
+def none?(collection, &block)
+  !any?(collection, &block)
+end 
+#===============================================================================
+#===============================================================================
+#===============================================================================

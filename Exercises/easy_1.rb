@@ -231,7 +231,7 @@ end
 # all?([]) { |value| false } == true
 
 #-------------------------------------------------------------------------------
-#                                 ANSWER: 
+#                                 ANSWER: 7
 #-------------------------------------------------------------------------------
 def all?(array)
   array.each do |el|
@@ -290,3 +290,121 @@ end
 #===============================================================================
 #===============================================================================
 #===============================================================================
+
+#-------------------------------------------------------------------------------
+#                                 QUESTION: 9
+#-------------------------------------------------------------------------------
+# Iterators: True for one?
+
+# Enumerable#one? processes elements in a collection by passing each element value to a block that is provided in the method call. If the block returns a truthy value for exactly one element, then #one? returns true. Otherwise, #one? returns false. Note in particular that #one? will stop searching the collection the second time the block returns true.
+
+# Write a method called one? that behaves similarly for Arrays. It should take an Array as an argument, and a block. It should return true if the block returns true for exactly one of the element values. Otherwise, it should return false.
+
+# Your method should stop processing elements of the Array as soon as the block returns true a second time.
+
+# If the Array is empty, one? should return false, regardless of how the block is defined.
+
+# Your method may not use any standard ruby method that is named all?, any?, none?, or one?.
+
+# Examples:
+
+# one?([1, 3, 5, 6]) { |value| value.even? }    # -> true
+# one?([1, 3, 5, 7]) { |value| value.odd? }     # -> false
+# one?([2, 4, 6, 8]) { |value| value.even? }    # -> false
+# one?([1, 3, 5, 7]) { |value| value % 5 == 0 } # -> true
+# one?([1, 3, 5, 7]) { |value| true }           # -> false
+# one?([1, 3, 5, 7]) { |value| false }          # -> false
+# one?([]) { |value| true }                     # -> false
+
+#-------------------------------------------------------------------------------
+#                                 ANSWER: 9
+#-------------------------------------------------------------------------------
+# def one?(array)
+#   total_true = 0
+
+#   array.each do |el|
+#     if yield(el) == true 
+#       total_true += 1
+#     end 
+#   end 
+
+#   total_true == 1
+# end 
+
+# # or
+
+# def one?(collection)
+#   seen_one = false 
+
+#   collection.each do |element|
+#     next unless yield(element)
+#     return false if seen_one 
+#     seen_one = true 
+#   end 
+#   seen_one 
+# end 
+
+# Our solution approaches this by using an each loop to iterate through the array, and a boolean local variable to keep track of whether we have seen a matching element yet. Each element is, in turn, yielded to the block; if the block returns a falsey value, we begin the next iteration. If the block returns a truthy value, we check to see if we have previously seen a matching element; if we have, we need to return false. Otherwise, we note the fact that we have a matching element, and continue iterating through the array.
+
+#===============================================================================
+#===============================================================================
+#===============================================================================
+
+
+#-------------------------------------------------------------------------------
+#                                 QUESTION: 10
+#-------------------------------------------------------------------------------
+# Count Items
+
+# Write a method that takes an array as an argument, and a block that returns true or false depending on the value of the array element passed to it. The method should return a count of the number of times the block returns true.
+
+# You may not use Array#count or Enumerable#count in your solution.
+
+# Examples:
+
+# count([1,2,3,4,5]) { |value| value.odd? } == 3
+# count([1,2,3,4,5]) { |value| value % 3 == 1 } == 2
+# count([1,2,3,4,5]) { |value| true } == 5
+# count([1,2,3,4,5]) { |value| false } == 0
+# count([]) { |value| value.even? } == 0
+# count(%w(Four score and seven)) { |value| value.size == 5 } == 2
+
+#-------------------------------------------------------------------------------
+#                                 ANSWER: 10
+#-------------------------------------------------------------------------------
+# def count(collection)
+#   true_count = 0 
+
+#   collection.each do |element|
+#     true_count += 1 if yield(element)
+#   end 
+
+#   true_count 
+# end 
+
+
+
+
+# Further Exploration
+
+# Write a version of the count method that meets the conditions of this exercise, but also does not use each, loop, while, or until.
+
+# def count(collection)
+#   true_count = 0 
+
+#   0.upto(collection.size - 1) do |idx|
+#     if yield(collection[idx])
+#       true_count += 1
+#     end 
+#   end 
+
+#   true_count 
+# end 
+
+
+
+
+#===============================================================================
+#===============================================================================
+#===============================================================================
+

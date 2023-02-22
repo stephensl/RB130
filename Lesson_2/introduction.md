@@ -5,3 +5,14 @@ This lesson is meant to be a brief overview of basic testing in Ruby.
 
 ## Why Write Tests?
 
+When beginning to learn to write software, we write tests to prevent regression. 
+  - When we make changes, we don't want to manually verify that everything still works. 
+    - Write tests to ensure that functionality is maintained amidst changes/updates.
+
+Tests can be written before the particular functionality is implemented or afterward. We often spend time jumping back and forth between implementation and testing code. 
+
+### Focus 
+- Testing simple classes
+  - Unit testing
+
+Advanced testing tools are built upon this knowledge. 

@@ -164,3 +164,24 @@ end
 ---
 ---
 
+## Refutations 
+Opposite of assertions: they *refute* rather than *assert*
+
+Every assertion has a corresponding refutation: 
+  - `assert`'s opposite is `refute`
+    - `refute` passes if the object you pass to it is *falsey* 
+    - take the same arguments 
+    - `refute_equal`, `refute_nil`, `refute_includes`. 
+
+These are not often used in practice. 
+
+---
+---
+
+Blog article resource:
+---
+
+https://launchschool.com/blog/assert-yourself-an-introduction-to-minitest
+
+---
+---

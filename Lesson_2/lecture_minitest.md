@@ -183,3 +183,67 @@ Line 7: one test failed `F` and one passed `.`
 ---
 
 ## Skipping Tests 
+To skip a test, use the `skip` keyword at the beginning of the test 
+
+```ruby 
+def test_bad_wheels 
+  skip                    # skip keyword 
+  car = Car.new 
+  assert_equal(3, car.wheels)
+end 
+```
+You could also pass a string into skip if you want a more custom display message.
+
+---
+---
+
+## Expectation syntax 
+So far we've been using the *assertion* or *assert-style* syntax. Minitest also has a different syntax called *expectation* or *spec-style* syntax.
+
+In expectation style, tests are grouped into `describe` blocks, and individual tests are written with the `it` method. 
+
+- We no longer use assertions and instead use *expectation matchers*.
+
+```ruby 
+require 'minitest/autorun'
+
+require_relative 'car'
+
+describe 'Car#wheels' do
+  it 'has 4 wheels' do
+    car = Car.new
+    _(car.wheels).must_equal 4           # this is the expectation
+  end
+end
+```
+
+output: 
+```ruby 
+Run options: --seed 51670
+
+# Running:
+
+Car#wheels .
+
+Finished in 0.001067s, 937.0051 runs/s, 937.0051 assertions/s.
+
+1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+```
+
+### Using either assertion or expectation syntax is a style choice. Some people prefer the expectation syntax because it mimics RSpec's syntax, but in this course, we're going to stick with the more intuitive assertion style.
+
+---
+---
+## Summary 
+- Minitest is an intuitive test library. It comes installed with Ruby.
+- Create a test file
+- Create a test class by subclassing `Minitest::Test`. 
+- Create a test by creating an instance method that starts with `test_`.
+- Create assertions with `assert_equal` and pass it the expected value and actual value.
+- Colorize Minitest outputs with `minitest_reporters`
+- Skip tests with `skip`
+- Minitest comes in two syntax flavors: assertion and expectation style.
+
+---
+---
+

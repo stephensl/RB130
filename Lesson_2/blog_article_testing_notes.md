@@ -491,4 +491,68 @@ If no exception is raised or a different exception is raised, the test fails.
 Many tests require that you examine the terminal output of your application.
 
 ## assert_silent 
+  - to test that no output being produced 
 
+```ruby 
+def test_has_no_output 
+  assert_silent { update_database }
+end 
+```
+If `#update_database` prints anything to `stdout` or `stderr` the test fails. 
+
+---
+---
+## assert_output 
+  - tests what gets printed and where
+
+```ruby 
+def test_stdout_and_stderr
+  assert_output('', /No records found/) do 
+    print_all_records
+  end 
+end 
+```
+The first argument is expected output sent to `stdout`
+
+The second argument specifies the expected output for `stderr`
+
+In our example above, the assertion expects that #print_all_records won't print anything to stdout, but will output an error message to stderr that contains the regular expression pattern No records found.
+
+---
+---
+---
+
+## Testing Classes and Objects 
+#
+
+## assert_instance_of
+  - asserts that object is of a particular class 
+
+```ruby 
+str = "hello"
+
+assert_instance_of(String, str)
+
+# This test would pass. 
+```
+
+---
+---
+
+## assert_kind_of
+  - asserts that object is an object of a particular class OR one of its subclasses. 
+
+  `assert_kind_of(SomeClass, object)`
+
+---
+---
+
+## assert_respond_to
+  - tests if object responds to particular method
+
+`assert_respond_to(object, :empty?)`
+
+This test asserts that object responds to the method #empty?, e.g., object.empty? is a valid method call. The method name may be specified as a symbol, as shown above, or as a String that will be converted to a symbol internally.
+
+---
+---

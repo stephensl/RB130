@@ -406,3 +406,89 @@ assert_includes(list, 'xyz')
 
 ---
 ---
+
+
+## assert_match 
+  - working with Strings 
+  - Uses regex to see if string matches pattern
+  - Most often used with text whose content only needs a few specific words. 
+
+`assert_match(/not found/, error_message)`
+
+---
+---
+
+## Set up/tear down
+  - code that needs to be run before or after each test. 
+  - `setup` method called prior to each test case in the class.
+  - `teardown` called after each test. 
+
+## Commonly set instance variables in `setup` method that can be used in the actual test case methods.
+
+```ruby 
+require 'minitest/autorun'
+require 'pg'
+
+class MyApp
+  def initialize
+    @db = PG.connect 'mydb'
+  end
+  
+  def cleanup
+    @db.finish
+  end
+  
+  def count; ...; end
+  
+  def create(value); ...; end
+end
+
+class DatabaseTest < Minitest::Test
+  def setup
+    @myapp = MyApp.new
+  end
+
+  def test_that_query_on_empty_database_returns_nothing
+    assert_equal 0, @myapp.count
+  end
+
+  def test_that_query_on_non_empty_database_returns_right_count
+    @myapp.create('Abc')
+    @myapp.create('Def')
+    @myapp.create('Ghi')
+    assert_equal 3, @myapp.count
+  end
+
+
+  def teardown
+    @myapp.cleanup
+  end
+end
+```
+This test suite runs two test cases. Prior to each test case, #setup creates a @myapp instance variable that references a MyApp object. After each test case, #teardown calls @myapp.cleanup to perform any shutdown cleanup required by the MyApp class. In this example, set up and tear down consist of code that establishes and then drops a database connection. Elsewhere in the test suite, we can reference @myapp freely to access the object.
+
+Note that both #setup and #teardown are independent and optional; you can have both, neither, or either one in any test suite.
+
+---
+---
+
+## Testing Error Handling: `assert_raises` 
+  - testing exceptions 
+
+```ruby 
+def test_with_negative_number 
+  assert_raises(Math::DomainError) { square_root(-3) }
+end 
+```
+In this case `assert_raises` asserts that the associated block should raise a `Math::DomainError` exception, or an exception that is a subclass of `Math::DomainError`. 
+
+If no exception is raised or a different exception is raised, the test fails. 
+
+---
+---
+
+## Testing Output 
+Many tests require that you examine the terminal output of your application.
+
+## assert_silent 
+

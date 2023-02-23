@@ -241,3 +241,168 @@ Now both tests pass.
 
 ## Test Case: `square_root(-1)` should return `nil`. 
 
+In the real domain, square roots aren’t defined for negative numbers, and our requirements require that #square_root should return nil if it is passed a negative number. Once again, let's write a test case, this time using #assert_nil:
+
+```ruby 
+require 'minitest/autorun'
+
+def square_root(value)
+  return nil if value.negative? 
+  
+  Math.sqrt(value).round 
+end 
+
+class SquareRootTest < Minitest::Test 
+  def test_square_of_negative_nil 
+    result = square_root(-1)
+    assert_nil(result)
+  end 
+end 
+```
+
+---
+---
+
+
+## Test Sequence 
+Minitest varies in the order in which it runs the tests. This is done randomly and tests should not be order dependent. 
+
+If there is an issue that arises only when the tests are run in a particular order, you can use `--seed` option to run tests in a known order. 
+
+For example: 
+
+Suppose you run some tests and get the following output:
+```ruby 
+Run options: --seed 51859
+...
+  1) Failure:
+XxxxxTest#test_... [x.rb:9]:
+Expected: 3
+  Actual: nil
+3 runs, 3 assertions, 1 failures, 0 errors, 0 skips
+```
+
+but a subsequent run produces:
+```ruby 
+Run options: --seed 23783
+...
+3 runs, 3 assertions, 0 failures, 0 errors, 0 skips
+```
+
+### You can use the first set of tests by using `--seed 51859` on the command: 
+
+`ruby tests/tests.rb --seed 51859`
+
+---
+If you absolutely, positively need to always execute things in order, you must name all your test methods in alphabetical order, and include the command:
+
+`i_suck_and_my_tests_are_order_dependent!`
+
+As you might surmise, the developers of Minitest feel very strongly about this. Don’t do it!
+
+---
+---
+---
+
+## Simple Assertions
+Each assertion is a call to a method whose name begins with `assert`. Assertions check whether the condition is true; refutations test whether the given condition is false 
+
+---
+---
+## assert 
+- Tests whether the first argument is "truthy"
+- Typically used for methods that return `true` or `false`.
+
+```ruby 
+assert(reverse('abc') == 'cba')
+
+# => true depending on reverse method..
+
+assert(reverse('abc') == 'cba', "reverse('abc') did not return 'cba'")
+
+#  if false
+  # => "reverse('abc') did not return 'cba'"
+```
+
+---
+---
+
+# assert_equal 
+  - Most frequently used assertion
+  - Tests whether an actual value produced during a test is equal to expected value.
+  - Uses `==` to perform comparisons
+    - May use custom `==` or inherited `BasicObject#==` 
+
+Example:
+```ruby 
+assert_equal('cba', reverse('abc'))
+```
+The first argument represents an expected value, while the second argument is the actual value. In this case, the actual value is return value of `reverse('abc')`.
+
+---
+---
+
+## assert_in_delta
+  - Helpful in dealing with `Float` numbers. 
+  - Tests if floating point number is *near* some value
+    - We set parameters of "how near"
+
+```ruby 
+assert_in_delta(3.1415, Math::PI, .0001)
+assert_in_delta(3.1415, Math::PI, .00001)
+```
+In these two tests, the 3rd argument is the "delta" value..if the expected and actual answers differ by more than the delta value, the assertion fails. 
+
+  * If a third argument is not supplied, a delta value of `0.001` is default. 
+
+In this example, the first test succeeds because 3.1415 differs from the actual value returned by Math::PI (3.141592653589793) by less than 0.0001 (the actual difference is approximately 0.0000027), while the second test fails because 3.1415 differs from Math::PI by more than 0.00001.
+
+---
+---
+
+## assert_same 
+  - Tests whether two object arguments are the same object. 
+  - Useful in determining if method returns same object passed in or not. 
+  - Uses the `equal?` method to compare objects
+
+`assert_same(ary, ary.sort!)` 
+
+This would pass as we perform a mutation on the same object. 
+
+---
+---
+
+## assert_nil 
+  - Checks whether object is `nil`
+
+  `assert_nil(find_todo_list('Groceries'))`
+
+---
+---
+
+## assert_empty
+  - checks whether an object returns true when `empty?` is called on it. 
+  - if object does not respond to `empty?` or returns a value other than `true`, the test fails. 
+  - Most useful for collections and strings
+
+```ruby 
+list = []
+assert_empty(list)
+
+# => Pass
+```
+
+---
+---
+
+## assert_includes 
+  - checks whether collection includes a specific object 
+  - fails if object doesn't respond to `include?` or method returns value other than `true`.
+
+```ruby 
+list = %w(abc def xyz)
+assert_includes(list, 'xyz')
+```
+
+---
+---

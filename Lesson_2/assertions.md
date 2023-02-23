@@ -173,7 +173,7 @@ Every assertion has a corresponding refutation:
     - take the same arguments 
     - `refute_equal`, `refute_nil`, `refute_includes`. 
 
-These are not often used in practice. 
+### These are not often used in practice. 
 
 ---
 ---

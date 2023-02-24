@@ -44,7 +44,7 @@ end
 # on a TodoList object, including iteration and selection.
 
 class TodoList
-  attr_accessor :title
+  attr_accessor :title, :todos
 
   def initialize(title)
     @title = title
@@ -153,4 +153,14 @@ class TodoList
   def mark_all_undone
     each { |todo| todo.undone! }
   end
+
+  def ==(other)
+    todos == other.todos 
+  end 
 end
+
+
+
+
+
+

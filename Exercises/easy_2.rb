@@ -103,6 +103,19 @@
 #   result 
 # end 
 
+# or 
+
+
+# def map(coll, &block)
+#   new_arr = []
+
+#   coll.each do |element|
+#     new_arr << block.call(element)
+#   end 
+
+#   new_arr
+# end 
+
 #===============================================================================
 #===============================================================================
 #===============================================================================
@@ -144,6 +157,13 @@
 #   total 
 # end 
 
+
+# or 
+
+# def count(*args, &block)
+#   args.select(&block).size
+# end 
+
 # Note that we use *arguments in the method definition; this lets us treat the list of arguments as an Array of values, which means the rest of our count method does not need to change (other than the change in variable name).
 
 #===============================================================================
@@ -179,7 +199,7 @@
 #-------------------------------------------------------------------------------
 # def drop_while(collection)
 #   collection.each_with_index do |element, idx|
-#     unless yield(element) then return collection[idx..-1]
+#     return collection[idx..-1] unless yield(element)
 #     end 
 #   end 
 #   []

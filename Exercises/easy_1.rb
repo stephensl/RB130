@@ -137,6 +137,17 @@
 
 # Further Exploration:
 
+# def divisors(int)
+#   keeps = []
+
+#   1.upto(Math.sqrt(int)) do |div|
+#     keeps.push(div, int / div) if int % div == 0 
+#   end 
+
+#   keeps.uniq.sort
+
+# end 
+
 
 
 #===============================================================================
@@ -147,9 +158,27 @@
 #-------------------------------------------------------------------------------
 #                                 QUESTION: 5
 #-------------------------------------------------------------------------------
+# The following list contains the names of individuals who are pioneers in the field of computing or that have had a significant influence on the field. The names are in an encrypted form, though, using a simple (and incredibly weak) form of encryption called Rot13.
 
-
-
+# Nqn Ybirynpr
+# Tenpr Ubccre
+# Nqryr Tbyqfgvar
+# Nyna Ghevat
+# Puneyrf Onoontr
+# Noqhyynu Zhunzznq ova Zhfn ny-Xujnevmzv
+# Wbua Ngnanfbss
+# Ybvf Unvog
+# Pynhqr Funaaba
+# Fgrir Wbof
+# Ovyy Tngrf
+# Gvz Orearef-Yrr
+# Fgrir Jbmavnx
+# Xbaenq Mhfr
+# Fve Nagbal Ubner
+# Zneiva Zvafxl
+# Lhxvuveb Zngfhzbgb
+# Unllvz Fybavzfxv
+# Tregehqr Oynapu
 
 
 
@@ -159,7 +188,36 @@
 #-------------------------------------------------------------------------------
 #                                 ANSWER: 5
 #-------------------------------------------------------------------------------
+# def lowercase?(char)
+#   char == char.downcase 
+# end 
 
+# def valid_char?(char)
+#   char.match(/[a-zA-Z]/)
+# end 
+
+# def decrypt(name)
+#   chars = name.chars 
+
+#   chars = chars.map do |char|
+#     if valid_char?(char) && lowercase?(char)
+#       char.ord + 13 < 122 ? (char.ord + 13).chr : (char.ord - 13).chr
+#     elsif valid_char?(char) && !lowercase?(char)
+#       char.ord + 13 < 90 ? (char.ord + 13).chr : (char.ord - 13).chr
+#     else 
+#       char 
+#     end 
+#   end 
+
+#   chars.join
+# end 
+
+# file_path = 'names.txt'
+# names = File.readlines(file_path)
+
+# names.each do |name|
+#   puts decrypt(name)
+# end
 
 #===============================================================================
 #===============================================================================
@@ -194,12 +252,12 @@
 #-------------------------------------------------------------------------------
 #                                 ANSWER: 6
 #-------------------------------------------------------------------------------
-def any?(array)
-  array.each do |el|
-    return true if yield(el)
-  end 
-  false
-end 
+# def any?(array)
+#   array.each do |el|
+#     return true if yield(el)
+#   end 
+#   false
+# end 
 
 
 #===============================================================================
@@ -399,6 +457,13 @@ end
 #   end 
 
 #   true_count 
+# end 
+
+
+# or 
+
+# def count(coll, &block)
+#   coll.select(&block).size 
 # end 
 
 

@@ -347,6 +347,27 @@
 #   current_max_element 
 # end 
 
+
+# or 
+
+# def max_by(arr, &block)
+#   return nil if arr.empty? 
+  
+#   saved_elem = arr.shift 
+#   cur_max = block.call(saved_elem)
+
+#   arr.each do |element| 
+#     return_val = block.call(element)
+    
+#     if return_val > cur_max 
+#       saved_elem = element 
+#       cur_max = return_val
+#     end 
+#   end 
+
+#   p saved_elem
+# end 
+
 #===============================================================================
 #===============================================================================
 #===============================================================================
